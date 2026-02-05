@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dub - The Modern Link Attribution Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        dub: {
+                            black: '#000000',
+                            gray: {
+                                50: '#fafafa',
+                                100: '#f5f5f5',
+                                200: '#e5e5e5',
+                                300: '#d4d4d4',
+                                400: '#a3a3a3',
+                                500: '#737373',
+                                600: '#525252',
+                                700: '#404040',
+                                800: '#262626',
+                                900: '#171717',
+                            }
+                        }
+                    },
+                    boxShadow: {
+                        'card': '0 0 0 1px rgba(0,0,0,0.03), 0 2px 8px rgba(0,0,0,0.04)',
+                        'card-hover': '0 0 0 1px rgba(0,0,0,0.05), 0 8px 30px rgba(0,0,0,0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 8px 30px rgba(0,0,0,0.08);
+        }
+        .bento-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body class="bg-dub-gray-50 text-dub-gray-900 antialiased selection:bg-black selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dub-gray-50/80 backdrop-blur-md border-b border-black/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-8">
+                    <a href="#" class="flex items-center gap-2 group">
+                        <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-bold text-lg group-hover:scale-105 transition-transform">
+                            D
+                        </div>
+                        <span class="font-semibold text-xl tracking-tight">Dub</span>
+                    </a>
+                    
+                    <!-- Desktop Nav -->
+                    <div class="hidden md:flex items-center gap-6">
+                        <a href="#" class="text-sm font-medium text-dub-gray-600 hover:text-black transition-colors">Enterprise</a>
+                        <a href="#" class="text-sm font-medium text-dub-gray-600 hover:text-black transition-colors">Customers</a>
+                        <a href="#" class="text-sm font-medium text-dub-gray-600 hover:text-black transition-colors">Pricing</a>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="flex items-center gap-4">
+                    <a href="#" class="hidden sm:block text-sm font-medium text-dub-gray-600 hover:text-black transition-colors">Log in</a>
+                    <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-dub-gray-800 transition-all hover:scale-105 active:scale-95">
+                        <span>Short Links</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 lg:pt-40 lg:pb-32 px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="max-w-4xl">
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-black leading-[1.1] mb-6 animate-fade-in">
+                Marketing isn't just about clicks.
+            </h1>
+            <h2 class="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-dub-gray-400 leading-[1.1] mb-8 animate-fade-in stagger-1">
+                It's about outcomes.
+            </h2>
+            
+            <p class="text-lg sm:text-xl text-dub-gray-600 max-w-2xl leading-relaxed mb-12 animate-fade-in stagger-2">
+                Dub is the modern link attribution platform that unifies <span class="text-black font-medium">short links</span>, <span class="text-black font-medium">real-time analytics</span>, and <span class="text-black font-medium">affiliate programs</span> – all in one place.
+            </p>
+
+            <p class="text-dub-gray-500 max-w-xl leading-relaxed mb-12 animate-fade-in stagger-3">
+                It's fast. It's reliable. It's beautiful. And it scales with you.
+                <br><br>
+                Because you deserve more than vanity metrics. You deserve clarity.
+            </p>
+
+            <div class="flex flex-wrap gap-4 animate-fade-in stagger-4">
+                <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-medium rounded-full hover:bg-dub-gray-800 transition-all hover:scale-105 active:scale-95">
+                    Get Started
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-medium rounded-full border border-dub-gray-200 hover:border-dub-gray-300 hover:bg-dub-gray-50 transition-all">
+                    View Documentation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section 1: Dub Links -->
+    <section class="py-24 px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="mb-16">
+                <span class="text-sm font-semibold text-dub-gray-500 uppercase tracking-wider mb-4 block">Dub Links</span>
+                <h2 class="text-4xl sm:text-5xl font-semibold tracking-tight text-black">It starts with a link</h2>
+                <p class="mt-4 text-lg text-dub-gray-600 max-w-2xl">
+                    Create branded short links with superpowers: built-in QR codes, device/geo-targeting, A/B testing, deep links, and more.
+                </p>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Custom Domains -->
+                <div class="group relative bg-dub-gray-50 rounded-3xl p-8 hover-lift overflow-hidden border border-black/5">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center mb-6 text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-black">Custom domains</h3>
+                        <p class="text-dub-gray-600 mb-6 leading-relaxed">
+                            Boost click-through rates by 30% with custom domains that match your brand.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-black group/link">
+                            Learn more 
+                            <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Advanced Link Features -->
+                <div class="group relative bg-dub-gray-50 rounded-3xl p-8 hover-lift overflow-hidden border border-black/5">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center mb-6 text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-black">Advanced link features</h3>
+                        <p class="text-dub-gray-600 mb-6 leading-relaxed">
+                            Custom link previews, device/geo-targeting, A/B testing, deep links, and more.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-black group/link">
+                            Learn more 
+                            <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- QR Codes -->
+                <div class="group relative bg-dub-gray-50 rounded-3xl p-8 hover-lift overflow-hidden border border-black/5">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center mb-6 text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4h2v-4zM6 20h2v-4H6v4zm6-6h2v-4h-2v4zm-6 0h2v-4H6v4zm12-6h2V4h-2v4zM6 10h2V4H6v6zm6-6h2V4h-2v4z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-black">QR codes</h3>
+                        <p class="text-dub-gray-600 mb-6 leading-relaxed">
+                            Create QR codes that match your brand, automatically generated with each short link.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-black group/link">
+                            Learn more 
+                            <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section 1 -->
+    <section class="py-24 px-6 lg:px-8 bg-dub-gray-50 border-y border-black/5">
+        <div class="max-w-4xl mx-auto text-center">
+            <blockquote class="text-2xl sm:text-3xl font-medium text-black leading-snug mb-8">
+                "What you all have built is fantastic. I've used platforms like Bitly for years, and Dub is hands down the best."
+            </blockquote>
+            <div class="flex items-center justify-center gap-4">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Ian Mackey" class="w-12 h-12 rounded-full object-cover grayscale">
+                <div class="text-left">
+                    <div class="font-semibold text-black">Ian Mackey</div>
+                    <div class="text-sm text-dub-gray-500">Vice President at Scicomm Media</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section 2: Dub Analytics -->
+    <section class="py-24 px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="mb-16">
+                <span class="text-sm font-semibold text-dub-gray-500 uppercase tracking-wider mb-4 block">Dub Analytics</span>
+                <h2 class="text-4xl sm:text-5xl font-semibold tracking-tight text-black">Measure what matters</h2>
+                <p class="mt-4 text-lg text-dub-gray-600 max-w-2xl">
+                    From first click to conversion, understand exactly how your marketing drives revenue with Dub's powerful attribution engine.
+                </p>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Conversion Tracking -->
+                <div class="group relative bg-dub-gray-50 rounded-3xl p-8 hover-lift overflow-hidden border border-black/5">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center mb-6 text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-black">Conversion tracking</h3>
+                        <p class="text-dub-gray-600 mb-6 leading-relaxed">
+                            Track your customer journey from first click to final sale.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-black group/link">
+                            Learn more 
+                            <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Real-time Analytics -->
+                <div class="group relative bg-dub-gray-50 rounded-3xl p-8 hover-lift overflow-hidden border border-black/5">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center mb-6 text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-black">Real-time analytics</h3>
+                        <p class="text-dub-gray-600 mb-6 leading-relaxed">
+                            See clicks, leads, and sales in real-time with full detail.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-black group/link">
+                            Learn more 
+                            <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Customer Insights -->
+                <div class="group relative bg-dub-gray-50 rounded-3xl p-8 hover-lift overflow-hidden border border-black/5">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center mb-6 text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-black">Customer insights</h3>
+                        <p class="text-dub-gray-600 mb-6 leading-relaxed">
+                            Understand customer journey, LTV, and retention rates.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-black group/link">
+                            Learn more 
+                            <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section 2 -->
+    <section class="py-24 px-6 lg:px-8 bg-dub-gray-50 border-y border-black/5">
+        <div class="max-w-4xl mx-auto text-center">
+            <blockquote class="text-2xl sm:text-3xl font-medium text-black leading-snug mb-8">
+                "Dub has been a game-changer for our marketing campaigns. Our links get tens of millions of clicks monthly – with Dub, we are able to easily design our link previews, attribute clicks, and visualize our data."
+            </blockquote>
+            <div class="flex items-center justify-center gap-4">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face" alt="Johnny Ho" class="w-12 h-12 rounded-full object-cover grayscale">
+                <div class="text-left">
+                    <div class="font-semibold text-black">Johnny Ho</div>
+                    <div class="text-sm text-dub-gray-500">Co-founder at Perplexity</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl sm:text-5xl font-semibold tracking-tight text-black mb-6">
+                Ready to get started?
+            </h2>
+            <p class="text-lg text-dub-gray-600 mb-10 max-w-2xl mx-auto">
+                Join thousands of companies using Dub to power their link attribution.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-black text-white font-medium rounded-full hover:bg-dub-gray-800 transition-all hover:scale-105 active:scale-95 text-lg">
+                    Start for free
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-medium rounded-full border border-dub-gray-200 hover:border-dub-gray-300 hover:bg-dub-gray-50 transition-all text-lg">
+                    Contact sales
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dub-gray-50 border-t border-black/5 py-12 px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-black rounded-md flex items-center justify-center text-white font-bold text-xs">
+                    D
+                </div>
+                <span class="font-semibold text-black">Dub</span>
+                <span class="text-dub-gray-400 text-sm ml-2">© 2024 Dub Inc.</span>
+            </div>
+            
+            <div class="flex items-center gap-8">
+                <a href="#" class="text-sm text-dub-gray-500 hover:text-black transition-colors">Twitter</a>
+                <a href="#" class="text-sm text-dub-gray-500 hover:text-black transition-colors">GitHub</a>
+                <a href="#" class="text-sm text-dub-gray-500 hover:text-black transition-colors">Discord</a>
+                <a href="#" class="text-sm text-dub-gray-500 hover:text-black transition-colors">Privacy</a>
+                <a href="#" class="text-sm text-dub-gray-500 hover:text-black transition-colors">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-sm');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
