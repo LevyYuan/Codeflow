@@ -364,35 +364,45 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
             )}
             <StickToBottom
               className={classNames('px-1 lg:px-2 py-1 relative', {
-                'h-full flex flex-col modern-scrollbar': chatStarted,
+                'flex-1 flex flex-col min-h-0': chatStarted,
               })}
               resize="smooth"
               initial="smooth"
             >
               {chatStarted && (
-                <div className="flex flex-col h-full w-full mx-auto border border-bolt-elements-borderColor rounded-xl bg-bolt-elements-background-depth-2 overflow-hidden" style={{ maxWidth: 'var(--chat-max-width)' }}>
-                  <StickToBottom.Content className="flex flex-col gap-4 relative flex-1 overflow-auto p-4">
-                    <ClientOnly>
-                      {() => {
-                        return (
-                          <Messages
-                            className="flex flex-col w-full flex-1"
-                            messages={messages}
-                            isStreaming={isStreaming}
-                            append={append}
-                            chatMode={chatMode}
-                            setChatMode={setChatMode}
-                            provider={provider}
-                            model={model}
-                            addToolResult={addToolResult}
-                          />
-                        );
-                      }}
-                    </ClientOnly>
-                    <ScrollToBottom />
-                  </StickToBottom.Content>
-                  <div className="flex flex-col gap-2 border-t border-bolt-elements-borderColor p-4">
-                    <div className="flex flex-col gap-2">
+                <>
+                  {/* 消息区域 - 可滚动 */}
+                  <div className="flex-1 overflow-hidden min-h-0">
+                    <div className="h-full w-full mx-auto border-x border-t border-bolt-elements-borderColor rounded-t-xl bg-bolt-elements-background-depth-2 overflow-hidden" style={{ maxWidth: 'var(--chat-max-width)' }}>
+                      <StickToBottom.Content className="h-full overflow-y-auto p-4">
+                        <div className="flex flex-col gap-4">
+                          <ClientOnly>
+                            {() => {
+                              return (
+                                <Messages
+                                  className="flex flex-col w-full"
+                                  messages={messages}
+                                  isStreaming={isStreaming}
+                                  append={append}
+                                  chatMode={chatMode}
+                                  setChatMode={setChatMode}
+                                  provider={provider}
+                                  model={model}
+                                  addToolResult={addToolResult}
+                                />
+                              );
+                            }}
+                          </ClientOnly>
+                          <ScrollToBottom />
+                        </div>
+                      </StickToBottom.Content>
+                    </div>
+                  </div>
+
+                  {/* 输入框区域 - 固定在底部 */}
+                  <div className="flex-shrink-0">
+                    <div className="w-full mx-auto border-x border-b border-bolt-elements-borderColor rounded-b-xl bg-bolt-elements-background-depth-2 p-4" style={{ maxWidth: 'var(--chat-max-width)' }}>
+                      <div className="flex flex-col gap-2">
                       {deployAlert && (
                         <DeployChatAlert
                           alert={deployAlert}
@@ -468,8 +478,9 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                       selectedElement={selectedElement}
                       setSelectedElement={setSelectedElement}
                     />
+                    </div>
                   </div>
-                </div>
+                </>
               )}
               {!chatStarted && (
                 <>

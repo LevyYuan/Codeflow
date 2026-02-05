@@ -14,7 +14,7 @@ export function Header() {
     >
       <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
         <a href="/" className="flex items-center gap-2 group">
-          <span className="font-semibold text-xl tracking-tight text-bolt-elements-textPrimary">Codeflow</span>
+          <span className="font-semibold text-2xl tracking-tight text-bolt-elements-textPrimary">Codeflow</span>
         </a>
       </div>
       <div className="flex-1"></div>
