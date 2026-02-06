@@ -373,8 +373,8 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                 <>
                   {/* 消息区域 - 可滚动 */}
                   <div className="flex-1 overflow-hidden min-h-0">
-                    <div className="h-full w-full mx-auto border-x border-t border-bolt-elements-borderColor rounded-t-xl bg-bolt-elements-background-depth-2 overflow-hidden" style={{ maxWidth: 'var(--chat-max-width)' }}>
-                      <StickToBottom.Content scrollContainerClassName="w-full h-full overflow-y-auto relative" className="p-4">
+                    <div className="h-full w-full mx-auto border-x border-t border-bolt-elements-borderColor rounded-t-xl bg-bolt-elements-background-depth-2 overflow-hidden relative" style={{ maxWidth: 'var(--chat-max-width)' }}>
+                      <StickToBottom.Content scrollContainerClassName="w-full h-full overflow-y-auto" className="p-4">
                         <div className="flex flex-col gap-4">
                           <ClientOnly>
                             {() => {
@@ -394,8 +394,8 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                             }}
                           </ClientOnly>
                         </div>
-                        <ScrollToBottom />
                       </StickToBottom.Content>
+                      <ScrollToBottom />
                     </div>
                   </div>
 
