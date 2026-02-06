@@ -43,6 +43,19 @@ export default defineConfig((config) => {
           return null;
         },
       },
+      {
+        name: 'util-types-polyfill',
+        resolveId(id) {
+          if (id === 'util/types' || id.endsWith('/util/types')) {
+            return 'virtual:util-types';
+          }
+        },
+        load(id) {
+          if (id === 'virtual:util-types') {
+            return `export * from 'util';`;
+          }
+        },
+      },
       remixVitePlugin({
         future: {
           v3_fetcherPersist: true,
