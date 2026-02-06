@@ -81,24 +81,14 @@ export const Artifact = memo(({ artifactId }: ArtifactProps) => {
     <>
       <div className="artifact border border-bolt-elements-borderColor flex flex-col overflow-hidden rounded-lg w-full transition-border duration-150">
         <div className="flex">
-          <button
-            className="flex items-stretch bg-bolt-elements-artifacts-background hover:bg-bolt-elements-artifacts-backgroundHover w-full overflow-hidden"
-            onClick={() => {
-              const showWorkbench = workbenchStore.showWorkbench.get();
-              workbenchStore.showWorkbench.set(!showWorkbench);
-            }}
-          >
+          <div className="flex items-stretch bg-bolt-elements-artifacts-background w-full overflow-hidden">
             <div className="px-5 p-3.5 w-full text-left">
               <div className="w-full text-bolt-elements-textPrimary font-medium leading-5 text-sm">
                 {/* Use the dynamic title here */}
                 {dynamicTitle}
               </div>
-              <div className="w-full w-full text-bolt-elements-textSecondary text-xs mt-0.5">
-                Click to open Workbench
-              </div>
             </div>
-          </button>
-          {artifact.type !== 'bundled' && <div className="bg-bolt-elements-artifacts-borderColor w-[1px]" />}
+          </div>
           <AnimatePresence>
             {actions.length && artifact.type !== 'bundled' && (
               <motion.button
