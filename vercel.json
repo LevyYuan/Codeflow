@@ -3,14 +3,5 @@
   "devCommand": "pnpm run dev",
   "installCommand": "pnpm install",
   "framework": null,
-  "outputDirectory": "build/client",
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "functions": {
-    "build/server/index.js": {
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  }
+  "outputDirectory": "build/client"
 }
