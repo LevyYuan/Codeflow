@@ -552,7 +552,7 @@ function ScrollToBottom() {
   return (
     !isAtBottom && (
       <button
-        className="absolute bottom-4 right-4 z-50 w-10 h-10 rounded-full bg-white dark:bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-200 hover:scale-110"
+        className="absolute bottom-4 right-4 z-50 w-9 h-9 rounded-full bg-white dark:bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-200 hover:scale-110"
         onClick={() => scrollToBottom()}
         aria-label="Scroll to bottom"
       >
