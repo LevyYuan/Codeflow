@@ -1,15 +1,4 @@
 {
-  "routes": [
-    {
-      "src": "/build/(.*)",
-      "dest": "/build/$1"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.js"
-    }
-  ]
+  "buildCommand": "npx remix vite:build",
+  "installCommand": "pnpm install"
 }
