@@ -3,5 +3,18 @@
   "devCommand": "pnpm run dev",
   "installCommand": "pnpm install",
   "framework": null,
-  "outputDirectory": "build/client"
+  "outputDirectory": "build/client",
+  "routes": [
+    {
+      "src": "/build/(.*)",
+      "dest": "/build/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
+    }
+  ]
 }
