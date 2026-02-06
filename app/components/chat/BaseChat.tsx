@@ -374,7 +374,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                   {/* 消息区域 - 可滚动 */}
                   <div className="flex-1 overflow-hidden min-h-0">
                     <div className="h-full w-full mx-auto border-x border-t border-bolt-elements-borderColor rounded-t-xl bg-bolt-elements-background-depth-2 overflow-hidden" style={{ maxWidth: 'var(--chat-max-width)' }}>
-                      <StickToBottom.Content scrollContainerClassName="w-full h-full overflow-y-auto" className="p-4">
+                      <StickToBottom.Content scrollContainerClassName="w-full h-full overflow-y-auto" className="p-4 relative">
                         <div className="flex flex-col gap-4">
                           <ClientOnly>
                             {() => {
@@ -564,7 +564,7 @@ function ScrollToBottom() {
   return (
     !isAtBottom && (
       <button
-        className="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-full bg-white dark:bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-200 hover:scale-110"
+        className="absolute bottom-4 right-4 z-50 w-10 h-10 rounded-full bg-white dark:bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-200 hover:scale-110"
         onClick={() => scrollToBottom()}
         aria-label="Scroll to bottom"
       >
