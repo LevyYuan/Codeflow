@@ -1,4 +1,5 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "build/client"
+  "buildCommand": "node -v && npm -v && npm install && npm run build 2>&1",
+  "outputDirectory": "build/client",
+  "installCommand": "echo 'Skipping install'"
 }
