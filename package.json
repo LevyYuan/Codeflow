@@ -98,10 +98,11 @@
     "@remix-run/cloudflare-pages": "^2.15.2",
     "@remix-run/dev": "^2.15.2",
     "@remix-run/node": "^2.15.2",
+    "@remix-run/server-runtime": "^2.15.2",
     "@vitejs/plugin-react": "^4.3.4",
     "@remix-run/react": "^2.15.2",
     "@remix-run/vercel": "^1.19.3",
-    "@vercel/remix": "^2.0.0",
+
     "@tanstack/react-virtual": "^3.13.0",
     "@types/react-beautiful-dnd": "^13.1.8",
     "@uiw/codemirror-theme-atomone": "^4.25.4",
@@ -206,6 +207,7 @@
     "stream-browserify": "^3.0.0",
     "typescript": "^5.7.2",
     "unified": "^11.0.5",
+    "util": "^0.12.5",
     "vitest": "^2.1.7",
     "wrangler": "^4.44.0"
   },

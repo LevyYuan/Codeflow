@@ -1,8 +1,5 @@
 {
   "buildCommand": "pnpm run build",
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "framework": "remix",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
+  "framework": null
 }
