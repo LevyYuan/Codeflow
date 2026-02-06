@@ -563,16 +563,13 @@ function ScrollToBottom() {
 
   return (
     !isAtBottom && (
-      <>
-        <div className="sticky bottom-0 left-0 right-0 bg-gradient-to-t from-bolt-elements-background-depth-1 to-transparent h-20 z-10" />
-        <button
-          className="sticky z-50 bottom-0 left-0 right-0 text-4xl rounded-lg px-1.5 py-0.5 flex items-center justify-center mx-auto gap-2 bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor text-bolt-elements-textPrimary text-sm"
-          onClick={() => scrollToBottom()}
-        >
-          Go to last message
-          <span className="i-ph:arrow-down animate-bounce" />
-        </button>
-      </>
+      <button
+        className="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-full bg-white dark:bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-200 hover:scale-110"
+        onClick={() => scrollToBottom()}
+        aria-label="Scroll to bottom"
+      >
+        <span className="i-ph:caret-down-bold text-lg text-bolt-elements-textPrimary" />
+      </button>
     )
   );
 }
