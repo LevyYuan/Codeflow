@@ -1,4 +1,4 @@
-import type { AppLoadContext } from '@remix-run/cloudflare';
+import type { AppLoadContext, EntryContext } from '@remix-run/cloudflare';
 import { RemixServer } from '@remix-run/react';
 import { isbot } from 'isbot';
 import { renderToReadableStream } from 'react-dom/server';
@@ -10,11 +10,9 @@ export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: any,
+  remixContext: EntryContext,
   _loadContext: AppLoadContext,
 ) {
-  // await initializeModelList({});
-
   const readable = await renderToReadableStream(<RemixServer context={remixContext} url={request.url} />, {
     signal: request.signal,
     onError(error: unknown) {
@@ -44,10 +42,8 @@ export default async function handleRequest(
             if (done) {
               controller.enqueue(new Uint8Array(new TextEncoder().encode('</div></body></html>')));
               controller.close();
-
               return;
             }
-
             controller.enqueue(value);
             read();
           })
@@ -58,7 +54,6 @@ export default async function handleRequest(
       }
       read();
     },
-
     cancel() {
       readable.cancel();
     },
@@ -69,9 +64,6 @@ export default async function handleRequest(
   }
 
   responseHeaders.set('Content-Type', 'text/html');
-
-  responseHeaders.set('Cross-Origin-Embedder-Policy', 'require-corp');
-  responseHeaders.set('Cross-Origin-Opener-Policy', 'same-origin');
 
   return new Response(body, {
     headers: responseHeaders,
