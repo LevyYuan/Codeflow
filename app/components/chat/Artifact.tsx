@@ -120,9 +120,9 @@ export const Artifact = memo(({ artifactId }: ArtifactProps) => {
           <div className="flex items-center gap-1.5 p-5 bg-bolt-elements-actions-background border-t border-bolt-elements-artifacts-borderColor">
             <div className={classNames('text-lg', getIconColor(allActionFinished ? 'complete' : 'running'))}>
               {allActionFinished ? (
-                <div className="i-ph:check"></div>
+                <div className="i-ph:check-circle-fill"></div>
               ) : (
-                <div className="i-svg-spinners:90-ring-with-bg"></div>
+                <div className="i-svg-spinners:3-dots-fade"></div>
               )}
             </div>
             <div className="text-bolt-elements-textPrimary font-medium leading-5 text-sm">
@@ -213,47 +213,69 @@ const ActionList = memo(({ actions }: ActionListProps) => {
               }}
             >
               <div className="flex items-center gap-1.5 text-sm">
-                <div className={classNames('text-lg', getIconColor(action.status))}>
-                  {status === 'running' ? (
-                    <>
-                      {type !== 'start' ? (
-                        <div className="i-svg-spinners:90-ring-with-bg"></div>
-                      ) : (
-                        <div className="i-ph:terminal-window-duotone"></div>
-                      )}
-                    </>
-                  ) : status === 'pending' ? (
-                    <div className="i-ph:circle-duotone"></div>
-                  ) : status === 'complete' ? (
-                    <div className="i-ph:check"></div>
-                  ) : status === 'failed' || status === 'aborted' ? (
-                    <div className="i-ph:x"></div>
-                  ) : null}
-                </div>
                 {type === 'file' ? (
-                  <div>
-                    Create{' '}
+                  <div className="flex items-center gap-2">
                     <code
                       className="bg-bolt-elements-artifacts-inlineCode-background text-bolt-elements-artifacts-inlineCode-text px-1.5 py-1 rounded-md text-bolt-elements-item-contentAccent hover:underline cursor-pointer"
                       onClick={() => openArtifactInWorkbench(action.filePath)}
                     >
                       {action.filePath}
                     </code>
+                    <span className="text-bolt-elements-textSecondary">
+                      {status === 'complete' ? '完成' : status === 'running' ? '写入' : '等待'}
+                    </span>
+                    <div className={classNames('text-lg', getIconColor(action.status))}>
+                      {status === 'running' ? (
+                        <div className="i-svg-spinners:3-dots-fade"></div>
+                      ) : status === 'pending' ? (
+                        <div className="i-ph:circle-duotone"></div>
+                      ) : status === 'complete' ? (
+                        <div className="i-ph:check-circle-fill"></div>
+                      ) : status === 'failed' || status === 'aborted' ? (
+                        <div className="i-ph:x-circle-fill"></div>
+                      ) : null}
+                    </div>
                   </div>
                 ) : type === 'shell' ? (
-                  <div className="flex items-center w-full min-h-[28px]">
-                    <span className="flex-1">Run command</span>
+                  <div className="flex items-center gap-1.5">
+                    <div className={classNames('text-lg', getIconColor(action.status))}>
+                      {status === 'running' ? (
+                        <div className="i-svg-spinners:3-dots-fade"></div>
+                      ) : status === 'pending' ? (
+                        <div className="i-ph:circle-duotone"></div>
+                      ) : status === 'complete' ? (
+                        <div className="i-ph:check-circle-fill"></div>
+                      ) : status === 'failed' || status === 'aborted' ? (
+                        <div className="i-ph:x-circle-fill"></div>
+                      ) : null}
+                    </div>
+                    <div className="flex items-center w-full min-h-[28px]">
+                      <span className="flex-1">Run command</span>
+                    </div>
                   </div>
                 ) : type === 'start' ? (
-                  <a
-                    onClick={(e) => {
-                      e.preventDefault();
-                      workbenchStore.currentView.set('preview');
-                    }}
-                    className="flex items-center w-full min-h-[28px]"
-                  >
-                    <span className="flex-1">Start Application</span>
-                  </a>
+                  <div className="flex items-center gap-1.5">
+                    <div className={classNames('text-lg', getIconColor(action.status))}>
+                      {status === 'running' ? (
+                        <div className="i-ph:terminal-window-duotone"></div>
+                      ) : status === 'pending' ? (
+                        <div className="i-ph:circle-duotone"></div>
+                      ) : status === 'complete' ? (
+                        <div className="i-ph:check-circle-fill"></div>
+                      ) : status === 'failed' || status === 'aborted' ? (
+                        <div className="i-ph:x-circle-fill"></div>
+                      ) : null}
+                    </div>
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        workbenchStore.currentView.set('preview');
+                      }}
+                      className="flex items-center w-full min-h-[28px]"
+                    >
+                      <span className="flex-1">Start Application</span>
+                    </a>
+                  </div>
                 ) : null}
               </div>
               {(type === 'shell' || type === 'start') && (

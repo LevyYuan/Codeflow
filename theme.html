@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高级配色方案预览</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif }
+    </style>
+<base target="_blank">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div id="app"></div>
+    <script>
+        const schemes = [
+            {
+                name: '极简主义 · 永恒黑白',
+                id: 'minimal',
+                desc: 'Apple/Notion 风格，最适合内容密集型应用',
+                colors: {
+                    primary: '#000000',
+                    secondary: '#6B7280',
+                    accent: '#3B82F6',
+                    background: '#FFFFFF',
+                    surface: '#F9FAFB',
+                    text: '#111827',
+                    textSecondary: '#6B7280',
+                    border: '#E5E7EB',
+                    success: '#10B981',
+                    warning: '#F59E0B',
+                    error: '#DC2626'
+                }
+            },
+            {
+                name: '深邃 · 午夜深海',
+                id: 'midnight',
+                desc: 'Linear/Raycast 风格，高端 SaaS 首选',
+                colors: {
+                    primary: '#818CF8',
+                    secondary: '#38BDF8',
+                    accent: '#F472B6',
+                    background: '#0F172A',
+                    surface: '#1E293B',
+                    text: '#F8FAFC',
+                    textSecondary: '#94A3B8',
+                    border: '#334155',
+                    success: '#34D399',
+                    warning: '#FBBF24',
+                    error: '#F87171'
+                }
+            },
+            {
+                name: '大地 · 暖调陶土',
+                id: 'earth',
+                desc: 'Notion/Dropbox 风格，有机温暖，适合创意类',
+                colors: {
+                    primary: '#92400E',
+                    secondary: '#B45309',
+                    accent: '#E11D48',
+                    background: '#FFFBF7',
+                    surface: '#FEF3C7',
+                    text: '#292524',
+                    textSecondary: '#78716C',
+                    border: '#E7E5E4',
+                    success: '#059669',
+                    warning: '#D97706',
+                    error: '#DC2626'
+                }
+            },
+            {
+                name: '赛博 · 石墨霓虹',
+                id: 'cyber',
+                desc: 'Vercel/GitHub Dark 风格，开发者工具首选',
+                colors: {
+                    primary: '#E2E8F0',
+                    secondary: '#64748B',
+                    accent: '#22D3EE',
+                    background: '#0A0A0A',
+                    surface: '#171717',
+                    text: '#FAFAFA',
+                    textSecondary: '#525252',
+                    border: '#262626',
+                    success: '#4ADE80',
+                    warning: '#FACC15',
+                    error: '#FB7185'
+                }
+            },
+            {
+                name: '冰川 · 冷调蓝灰',
+                id: 'glacier',
+                desc: 'Figma/Stripe 风格，专业冷静，适合 B2B',
+                colors: {
+                    primary: '#0EA5E9',
+                    secondary: '#6366F1',
+                    accent: '#F43F5E',
+                    background: '#F0F9FF',
+                    surface: '#FFFFFF',
+                    text: '#0F172A',
+                    textSecondary: '#64748B',
+                    border: '#CBD5E1',
+                    success: '#10B981',
+                    warning: '#F59E0B',
+                    error: '#EF4444'
+                }
+            }
+        ];
+
+        let currentScheme = schemes[0];
+
+        function getContrastColor(hexColor, backgroundColor) {
+            // 简单判断：如果是深色背景返回浅色文字，反之亦然
+            const darkIds = ['midnight', 'cyber'];
+            if (darkIds.includes(currentScheme.id)) {
+                return currentScheme.colors.background;
+            }
+            return '#FFFFFF';
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+            const isDark = ['midnight', 'cyber'].includes(currentScheme.id);
+            
+            app.innerHTML = `
+                <div style="background-color: ${currentScheme.colors.background}; min-height: 100vh;">
+                    <div class="max-w-7xl mx-auto p-6">
+                        <!-- Header -->
+                        <div class="mb-8">
+                            <h1 style="color: ${currentScheme.colors.text};" class="text-3xl font-bold mb-2">配色方案预览</h1>
+                            <p style="color: ${currentScheme.colors.textSecondary};" class="mb-6">点击下方按钮切换不同配色方案查看效果</p>
+                            
+                            <!-- Scheme Switcher -->
+                            <div class="flex flex-wrap gap-3 mb-8">
+                                ${schemes.map(s => `
+                                    <button onclick="switchScheme('${s.id}')" 
+                                        style="background-color: ${s.id === currentScheme.id ? s.colors.primary : s.colors.surface}; 
+                                               color: ${s.id === currentScheme.id ? (['minimal', 'earth', 'glacier'].includes(s.id) ? '#fff' : s.colors.background) : s.colors.text}; 
+                                               border: 2px solid ${s.id === currentScheme.id ? s.colors.primary : s.colors.border};" 
+                                        class="px-4 py-3 rounded-xl font-medium transition-all hover:scale-105 shadow-sm">
+                                        <div class="text-left">
+                                            <div class="font-bold text-sm">${s.name.split(' · ')[0]}</div>
+                                            <div class="text-xs opacity-80 font-normal mt-0.5">${s.name.split(' · ')[1]}</div>
+                                        </div>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Main Preview Card -->
+                            <div style="background-color: ${currentScheme.colors.surface}; border: 1px solid ${currentScheme.colors.border};" 
+                                 class="rounded-2xl p-6 shadow-lg">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div>
+                                        <h2 style="color: ${currentScheme.colors.text};" class="text-2xl font-bold">${currentScheme.name}</h2>
+                                        <p style="color: ${currentScheme.colors.textSecondary};" class="text-sm mt-1">${currentScheme.desc}</p>
+                                    </div>
+                                    <span style="background-color: ${currentScheme.colors.accent}20; color: ${currentScheme.colors.accent}; border: 1px solid ${currentScheme.colors.accent}40;" 
+                                          class="px-3 py-1 rounded-full text-sm font-medium">Active</span>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <!-- Buttons -->
+                                    <div class="flex flex-wrap gap-3">
+                                        <button style="background-color: ${currentScheme.colors.primary}; color: ${isDark ? currentScheme.colors.background : '#fff'};" 
+                                                class="px-6 py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity shadow-sm">
+                                            Primary Action
+                                        </button>
+                                        <button style="background-color: ${currentScheme.colors.surface}; color: ${currentScheme.colors.text}; border: 1px solid ${currentScheme.colors.border};" 
+                                                class="px-6 py-2.5 rounded-lg font-medium hover:bg-opacity-80 transition-all">
+                                            Secondary
+                                        </button>
+                                        <button style="color: ${currentScheme.colors.accent};" 
+                                                class="px-6 py-2.5 rounded-lg font-medium hover:opacity-80 transition-opacity flex items-center gap-1">
+                                            Accent Link <span class="text-lg">→</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Alerts -->
+                                    <div style="background-color: ${currentScheme.colors.background}; border: 1px solid ${currentScheme.colors.border};" 
+                                         class="p-4 rounded-xl space-y-3">
+                                        <div class="flex items-center gap-3">
+                                            <div style="background-color: ${currentScheme.colors.success}20;" class="w-10 h-10 rounded-full flex items-center justify-center">
+                                                <span style="color: ${currentScheme.colors.success};" class="text-lg">✓</span>
+                                            </div>
+                                            <div>
+                                                <p style="color: ${currentScheme.colors.text};" class="font-medium">Changes saved successfully</p>
+                                                <p style="color: ${currentScheme.colors.textSecondary};" class="text-sm">Your preferences have been updated</p>
+                                            </div>
+                                        </div>
+                                        <div style="border-top: 1px solid ${currentScheme.colors.border};" class="pt-3 flex items-center gap-3">
+                                            <div style="background-color: ${currentScheme.colors.warning}20;" class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
+                                                <span style="color: ${currentScheme.colors.warning};" class="text-lg">!</span>
+                                            </div>
+                                            <div>
+                                                <p style="color: ${currentScheme.colors.text};" class="font-medium">Storage at 85%</p>
+                                                <p style="color: ${currentScheme.colors.textSecondary};" class="text-sm">Consider upgrading your plan soon</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Input Example -->
+                                    <div class="space-y-2">
+                                        <label style="color: ${currentScheme.colors.text};" class="text-sm font-medium block">Email Address</label>
+                                        <input type="text" placeholder="name@example.com" 
+                                               style="background-color: ${currentScheme.colors.background}; color: ${currentScheme.colors.text}; border: 1px solid ${currentScheme.colors.border};" 
+                                               class="w-full px-4 py-2.5 rounded-lg focus:outline-none focus:ring-2 transition-all placeholder-gray-400">
+                                        <p style="color: ${currentScheme.colors.textSecondary};" class="text-xs">We'll never share your email with anyone else.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="space-y-6">
+                                <!-- Color Palette -->
+                                <div style="background-color: ${currentScheme.colors.surface}; border: 1px solid ${currentScheme.colors.border};" 
+                                     class="rounded-2xl p-6 shadow-lg">
+                                    <h3 style="color: ${currentScheme.colors.text};" class="font-bold mb-4 flex items-center gap-2">
+                                        <span style="color: ${currentScheme.colors.accent};">◆</span> 色彩系统
+                                    </h3>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        ${Object.entries(currentScheme.colors).map(([key, value]) => `
+                                            <div style="background-color: ${currentScheme.colors.background}; border: 1px solid ${currentScheme.colors.border};" 
+                                                 class="p-3 rounded-lg flex items-center gap-3 group cursor-pointer hover:border-opacity-50 transition-all"
+                                                 onclick="navigator.clipboard.writeText('${value}')">
+                                                <div style="background-color: ${value};" 
+                                                     class="w-12 h-12 rounded-lg shadow-sm flex-shrink-0 ${key === 'background' && value === '#FFFFFF' ? 'border border-gray-200' : ''} ${key === 'background' && value === '#FFFBF7' ? 'border border-orange-100' : ''}"></div>
+                                                <div class="min-w-0 flex-1">
+                                                    <p style="color: ${currentScheme.colors.text};" class="font-medium text-sm capitalize truncate">${key}</p>
+                                                    <p style="color: ${currentScheme.colors.textSecondary};" class="text-xs font-mono uppercase opacity-70 group-hover:opacity-100">${value}</p>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <p style="color: ${currentScheme.colors.textSecondary};" class="text-xs mt-3 text-center">点击色块复制 HEX 值</p>
+                                </div>
+
+                                <!-- Card Component -->
+                                <div style="background-color: ${currentScheme.colors.surface}; border: 1px solid ${currentScheme.colors.border};" 
+                                     class="rounded-2xl p-6 shadow-lg">
+                                    <h3 style="color: ${currentScheme.colors.text};" class="font-bold mb-4">组件示例</h3>
+                                    <div style="background-color: ${currentScheme.colors.background}; border: 1px solid ${currentScheme.colors.border};" 
+                                         class="p-5 rounded-xl">
+                                        <div class="flex items-start gap-4">
+                                            <div style="background: linear-gradient(135deg, ${currentScheme.colors.primary}, ${currentScheme.colors.secondary});" 
+                                                 class="w-16 h-16 rounded-xl flex-shrink-0 shadow-sm"></div>
+                                            <div class="flex-1 min-w-0">
+                                                <h4 style="color: ${currentScheme.colors.text};" class="font-bold text-lg mb-1 truncate">Project Aurora</h4>
+                                                <p style="color: ${currentScheme.colors.textSecondary};" class="text-sm mb-3 line-clamp-2">Real-time collaboration platform with advanced design tools and version control.</p>
+                                                <div class="flex flex-wrap gap-2">
+                                                    <span style="background-color: ${currentScheme.colors.primary}15; color: ${currentScheme.colors.primary};" 
+                                                          class="px-2.5 py-1 rounded-md text-xs font-medium">Design</span>
+                                                    <span style="background-color: ${currentScheme.colors.accent}15; color: ${currentScheme.colors.accent};" 
+                                                          class="px-2.5 py-1 rounded-md text-xs font-medium">Urgent</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="border-top: 1px solid ${currentScheme.colors.border};" class="mt-4 pt-4 flex justify-between items-center">
+                                            <div class="flex -space-x-2">
+                                                <div style="background-color: ${currentScheme.colors.secondary};" class="w-8 h-8 rounded-full border-2 border-white"></div>
+                                                <div style="background-color: ${currentScheme.colors.accent};" class="w-8 h-8 rounded-full border-2 border-white"></div>
+                                                <div style="background-color: ${currentScheme.colors.border};" class="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-xs text-gray-500">+3</div>
+                                            </div>
+                                            <button style="color: ${currentScheme.colors.primary};" class="text-sm font-medium hover:underline">View Details →</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div style="border-top: 1px solid ${currentScheme.colors.border};" class="mt-12 pt-6 text-center">
+                            <p style="color: ${currentScheme.colors.textSecondary};" class="text-sm">
+                                对比你的原方案，这些配色降低了饱和度，增加了层次感和专业度
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function switchScheme(id) {
+            currentScheme = schemes.find(s => s.id === id);
+            render();
+        }
+
+        render();
+    </script>
+</body>
+</html>

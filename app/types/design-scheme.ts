@@ -6,19 +6,19 @@ export interface DesignScheme {
 
 export const defaultDesignScheme: DesignScheme = {
   palette: {
-    primary: '#9E7FFF',
-    secondary: '#38bdf8',
-    accent: '#f472b6',
-    background: '#171717',
-    surface: '#262626',
-    text: '#FFFFFF',
-    textSecondary: '#A3A3A3',
-    border: '#2F2F2F',
-    success: '#10b981',
-    warning: '#f59e0b',
-    error: '#ef4444',
+    primary: '#6366F1',      // 现代靛蓝 - 科技感主色
+    secondary: '#06B6D4',    // 青色 - 清新辅助色
+    accent: '#A855F7',       // 紫罗兰 - 高端强调色
+    background: '#0A0E27',   // 深邃蓝黑 - 奢华背景
+    surface: '#1A1F3A',      // 深蓝灰 - 层次表面
+    text: '#FFFFFF',         // 纯白 - 清晰文本
+    textSecondary: '#94A3B8',// 石板灰 - 柔和次要文本
+    border: '#2D3250',       // 深蓝灰 - 精致边框
+    success: '#10B981',      // 翠绿 - 成功提示
+    warning: '#F59E0B',      // 琥珀 - 警告提示
+    error: '#EF4444',        // 珊瑚红 - 错误提示
   },
-  features: ['rounded'],
+  features: ['rounded', 'gradient', 'shadow'],  // 圆角 + 渐变 + 阴影
   font: ['sans-serif'],
 };
 

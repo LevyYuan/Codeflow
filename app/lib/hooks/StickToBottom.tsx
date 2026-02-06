@@ -123,13 +123,14 @@ export function StickToBottom({
 
 export interface StickToBottomContentProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
   children: ((context: StickToBottomContext) => ReactNode) | ReactNode;
+  scrollContainerClassName?: string;
 }
 
-function Content({ children, ...props }: StickToBottomContentProps) {
+function Content({ children, scrollContainerClassName, ...props }: StickToBottomContentProps) {
   const context = useStickToBottomContext();
 
   return (
-    <div ref={context.scrollRef} className="w-full h-auto">
+    <div ref={context.scrollRef} className={scrollContainerClassName || "w-full h-auto"}>
       <div {...props} ref={context.contentRef}>
         {typeof children === 'function' ? children(context) : children}
       </div>

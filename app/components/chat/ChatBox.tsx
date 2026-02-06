@@ -20,6 +20,121 @@ import { McpTools } from './MCPTools';
 import * as Dialog from '@radix-ui/react-dialog';
 import { FiSettings } from 'react-icons/fi';
 
+// Predefined website themes
+const websiteThemes = [
+  {
+    name: '极简主义',
+    subtitle: '永恒黑白',
+    id: 'minimal',
+    palette: {
+      primary: '#000000',
+      secondary: '#6B7280',
+      accent: '#3B82F6',
+      background: '#FFFFFF',
+      surface: '#F9FAFB',
+      text: '#111827',
+      textSecondary: '#6B7280',
+      border: '#E5E7EB',
+      success: '#10B981',
+      warning: '#F59E0B',
+      error: '#DC2626',
+    },
+  },
+  {
+    name: '深邃',
+    subtitle: '午夜深海',
+    id: 'midnight',
+    palette: {
+      primary: '#818CF8',
+      secondary: '#38BDF8',
+      accent: '#F472B6',
+      background: '#0F172A',
+      surface: '#1E293B',
+      text: '#F8FAFC',
+      textSecondary: '#94A3B8',
+      border: '#334155',
+      success: '#34D399',
+      warning: '#FBBF24',
+      error: '#F87171',
+    },
+  },
+  {
+    name: '大地',
+    subtitle: '暖调陶土',
+    id: 'earth',
+    palette: {
+      primary: '#92400E',
+      secondary: '#B45309',
+      accent: '#E11D48',
+      background: '#FFFBF7',
+      surface: '#FEF3C7',
+      text: '#292524',
+      textSecondary: '#78716C',
+      border: '#E7E5E4',
+      success: '#059669',
+      warning: '#D97706',
+      error: '#DC2626',
+    },
+  },
+  {
+    name: '赛博',
+    subtitle: '石墨霓虹',
+    id: 'cyber',
+    palette: {
+      primary: '#E2E8F0',
+      secondary: '#64748B',
+      accent: '#22D3EE',
+      background: '#0A0A0A',
+      surface: '#171717',
+      text: '#FAFAFA',
+      textSecondary: '#525252',
+      border: '#262626',
+      success: '#4ADE80',
+      warning: '#FACC15',
+      error: '#FB7185',
+    },
+  },
+  {
+    name: '冰川',
+    subtitle: '冷调蓝灰',
+    id: 'glacier',
+    palette: {
+      primary: '#0EA5E9',
+      secondary: '#6366F1',
+      accent: '#F43F5E',
+      background: '#F0F9FF',
+      surface: '#FFFFFF',
+      text: '#0F172A',
+      textSecondary: '#64748B',
+      border: '#CBD5E1',
+      success: '#10B981',
+      warning: '#F59E0B',
+      error: '#EF4444',
+    },
+  },
+];
+
+const handleThemeSelect = (
+  themeId: string,
+  setDesignScheme?: (scheme: DesignScheme) => void,
+  setSelectedTheme?: (id: string) => void
+) => {
+  localStorage.setItem('bolt_website_theme', themeId);
+  setSelectedTheme?.(themeId);
+
+  const theme = websiteThemes.find((t) => t.id === themeId);
+  if (theme && setDesignScheme) {
+    const designScheme: DesignScheme = {
+      palette: theme.palette,
+      features: ['rounded', 'gradient', 'shadow'],
+      font: ['sans-serif'],
+    };
+    setDesignScheme(designScheme);
+    localStorage.setItem('bolt_design_scheme', JSON.stringify(designScheme));
+    toast.success(`主题已切换至 ${theme.name}`);
+  }
+};
+
 interface ChatBoxProps {
   isModelSettingsCollapsed: boolean;
   setIsModelSettingsCollapsed: (collapsed: boolean) => void;
@@ -93,6 +208,10 @@ const SettingsDialog = ({
   designScheme?: DesignScheme;
   setDesignScheme?: (scheme: DesignScheme) => void;
 }) => {
+  const [selectedTheme, setSelectedTheme] = useState<string>(() => {
+    return localStorage.getItem('bolt_website_theme') || 'minimal';
+  });
+
   return (
     <Dialog.Portal>
       <Dialog.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[200]" />
@@ -168,8 +287,63 @@ const SettingsDialog = ({
 
             {/* Design Scheme */}
             <div className="space-y-3">
-              <label className="text-sm font-medium text-bolt-elements-textSecondary">Appearance</label>
-              <ColorSchemeDialog designScheme={designScheme} setDesignScheme={setDesignScheme} />
+              <label className="text-sm font-medium text-bolt-elements-textSecondary">网站主题</label>
+              <div className="text-xs text-bolt-elements-textSecondary mb-3">
+                选择预设主题，AI 将使用该配色方案生成网站
+              </div>
+
+              {/* Theme Presets */}
+              <div className="grid grid-cols-1 gap-2 mb-4">
+                {websiteThemes.map((theme) => {
+                  const isSelected = selectedTheme === theme.id;
+                  return (
+                    <button
+                      key={theme.id}
+                      onClick={() => handleThemeSelect(theme.id, setDesignScheme, setSelectedTheme)}
+                      className={classNames(
+                        'relative p-3 rounded-lg text-left transition-all duration-200 border',
+                        isSelected
+                          ? 'border-bolt-elements-item-contentAccent bg-bolt-elements-item-backgroundAccent'
+                          : 'border-bolt-elements-borderColor hover:border-bolt-elements-borderColorActive'
+                      )}
+                    >
+                      {isSelected && (
+                        <div className="absolute top-2 right-2 w-4 h-4 bg-bolt-elements-item-contentAccent rounded-full flex items-center justify-center">
+                          <div className="i-ph:check w-2.5 h-2.5 text-white" />
+                        </div>
+                      )}
+                      <div className="flex items-center gap-2 mb-2">
+                        <div
+                          className="w-8 h-8 rounded-md flex-shrink-0"
+                          style={{
+                            background: `linear-gradient(135deg, ${theme.palette.primary}, ${theme.palette.secondary})`,
+                          }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-bolt-elements-textPrimary">
+                            {theme.name} · {theme.subtitle}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-1">
+                        {Object.values(theme.palette).slice(0, 6).map((color, i) => (
+                          <div
+                            key={i}
+                            className="w-4 h-4 rounded-sm"
+                            style={{ backgroundColor: color }}
+                          />
+                        ))}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Custom Color Picker */}
+              <div className="pt-3 border-t border-bolt-elements-borderColor">
+                <label className="text-sm font-medium text-bolt-elements-textSecondary mb-2 block">自定义配色</label>
+                <ColorSchemeDialog designScheme={designScheme} setDesignScheme={setDesignScheme} />
+              </div>
             </div>
 
             {/* Supabase Connection */}

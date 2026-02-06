@@ -92,7 +92,18 @@ export const ChatImpl = memo(
     const [searchParams, setSearchParams] = useSearchParams();
     const [fakeLoading, setFakeLoading] = useState(false);
     const files = useStore(workbenchStore.files);
-    const [designScheme, setDesignScheme] = useState<DesignScheme>(defaultDesignScheme);
+    const [designScheme, setDesignScheme] = useState<DesignScheme>(() => {
+      // Try to load from localStorage first
+      const saved = localStorage.getItem('bolt_design_scheme');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (e) {
+          console.error('Failed to parse saved design scheme:', e);
+        }
+      }
+      return defaultDesignScheme;
+    });
     const actionAlert = useStore(workbenchStore.alert);
     const deployAlert = useStore(workbenchStore.deployAlert);
     const supabaseConn = useStore(supabaseConnection);
@@ -116,6 +127,23 @@ export const ChatImpl = memo(
     const [chatMode, setChatMode] = useState<'discuss' | 'build'>('build');
     const [selectedElement, setSelectedElement] = useState<ElementInfo | null>(null);
     const mcpSettings = useMCPStore((state) => state.settings);
+
+    // Listen for design scheme changes from settings
+    useEffect(() => {
+      const handleStorageChange = (e: StorageEvent) => {
+        if (e.key === 'bolt_design_scheme' && e.newValue) {
+          try {
+            const newScheme = JSON.parse(e.newValue);
+            setDesignScheme(newScheme);
+          } catch (error) {
+            console.error('Failed to parse design scheme from storage event:', error);
+          }
+        }
+      };
+
+      window.addEventListener('storage', handleStorageChange);
+      return () => window.removeEventListener('storage', handleStorageChange);
+    }, []);
 
     const {
       messages,
