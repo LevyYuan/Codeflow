@@ -164,6 +164,9 @@ importers:
       '@remix-run/dev':
         specifier: ^2.15.2
         version: 2.17.4(@remix-run/react@2.17.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))(@remix-run/serve@2.17.4(typescript@5.9.3))(@types/node@14.18.33)(sass-embedded@1.97.3)(sass@1.97.3)(ts-node@10.9.1(@types/node@14.18.33)(typescript@5.9.3))(typescript@5.9.3)(vite@5.4.21(@types/node@14.18.33)(sass-embedded@1.97.3)(sass@1.97.3))(wrangler@3.114.17(@cloudflare/workers-types@4.20260206.0))
+      '@remix-run/express':
+        specifier: ^2.15.2
+        version: 2.17.4(express@4.22.1)(typescript@5.9.3)
       '@remix-run/node':
         specifier: ^2.15.2
         version: 2.17.4(typescript@5.9.3)
@@ -239,6 +242,9 @@ importers:
       electron-updater:
         specifier: ^6.3.9
         version: 6.7.3
+      express:
+        specifier: ^4.18.2
+        version: 4.22.1
       fast-glob:
         specifier: ^3.3.2
         version: 3.3.3
@@ -12338,7 +12344,7 @@ snapshots:
 
   '@types/node-fetch@2.6.3':
     dependencies:
-      '@types/node': 14.18.33
+      '@types/node': 25.2.1
       form-data: 3.0.4
 
   '@types/node@14.18.33': {}
@@ -12708,7 +12714,7 @@ snapshots:
       '@babel/plugin-syntax-typescript': 7.28.6(@babel/core@7.29.0)
       '@vanilla-extract/babel-plugin-debug-ids': 1.2.2
       '@vanilla-extract/css': 1.18.0
-      esbuild: 0.17.6
+      esbuild: 0.17.19
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0
